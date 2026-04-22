@@ -1,15 +1,23 @@
+{% extends 'Incidencias_Almacen/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard</title>
-</head>
-<body>
-    <header> 
-        <h1> DashBoard </h1>
-    </header>
-    
-</body>
-</html>
+
+{%block cod_css%} 
+    <link href="{% static 'Incidencias_Almacen/css/Dashboard.css'%}" rel="stylesheet"> 
+{%endblock%}
+
+{% block h1_titulo%} Dashboard {% endblock %}
+{% block p_texto%} Menu de Navegacion {% endblock%}
+
+{% block content %}
+    <main> 
+        <nav>
+            <ul>
+               <li> <a href="{% url 'Listado'%}"> Listado de Incidencias </a></li>
+               <li> <a href="{% url 'Detalles'%}"> Detalles de Incidencias </a></li> 
+               <li> Parte 3</li> 
+               <li> Parte 4</li> 
+            </ul>
+        </nav>
+    </main>
+
+{% endblock %}

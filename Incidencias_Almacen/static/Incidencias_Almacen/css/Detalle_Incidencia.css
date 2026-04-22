@@ -1,0 +1,31 @@
+main{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+align-items: stretch;
+flex: 1;
+}
+.divi{
+display: flex;
+flex-direction: column;
+border: 3px solid black ;
+background-color: ghostwhite;
+border-radius: 10px;
+padding: 15px;
+margin: 10px;
+flex: 1;
+text-align: center;
+justify-content: center;
+align-items: center;
+}
+.info{
+display: flex;
+flex: 2;
+flex-direction: column;
+}
+.cuando, .extra{
+display: flex;
+flex: 1;
+flex-direction: column;
+}

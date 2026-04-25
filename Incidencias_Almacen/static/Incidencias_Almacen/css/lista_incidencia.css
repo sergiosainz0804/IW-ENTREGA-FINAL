@@ -9,7 +9,6 @@ aside{
 flex: 1;
 display: flex;
 flex-direction: column;
-
 }
 table{
 border: 5px solid black;
@@ -21,6 +20,7 @@ padding: 25px 0;
 text-align: center;
 letter-spacing: 3px;
 border-collapse: collapse;
+box-shadow: 4px 4px black;
 }
 #contenido{
 display: flex;
@@ -40,6 +40,7 @@ background-color: ghostwhite;
 border-radius: 10px;
 border: 3px solid black;
 padding: 8px;
+box-shadow: 8px 8px black;
 }
 #num{
 font-weight: bold;
@@ -49,11 +50,11 @@ th{
 border-bottom: 2px solid black;
 padding-bottom: 8px;
 }
-#acc{
+#acc , #ac{
 display: flex;
 flex-direction: column;
 }
-#acc:hover{
+#acc:hover , #ac:hover {
 background-color: red;
 font-weight: bold;
 transition: 0.2s ease-in;
@@ -70,5 +71,6 @@ transition: 0.3s ease-in;
 border-bottom: 2px dashed black;
 line-height: 2;
 }
-
-
+#ac:hover{
+background-color: lightgreen;
+}

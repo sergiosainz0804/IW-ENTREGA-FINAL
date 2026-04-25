@@ -11,11 +11,17 @@
 {% block content %}
     <main> 
         <nav>
+            <h2>Incidencias</h2>
             <ul>
                <li> <a href="{% url 'Listado'%}"> Listado de Incidencias </a></li>
                <li> <a href="{% url 'Detalles'%}"> Detalles de Incidencias </a></li> 
-               <li> Parte 3</li> 
-               <li> Parte 4</li> 
+               <li> <a href="{% url 'Registrar'%}"> Registrar Incidencia </a></li> 
+            </ul>
+            <h2> Materiales </h2>
+            <ul>
+                <li> <a href="{% url 'Lista_Material'%}"> Lista Materiales </a> </li>
+                <li> <a href="{% url 'DetalleM'%}"> Detalle Material </li>
+                <li> <a> Registrar Material</a></li>
             </ul>
         </nav>
     </main>

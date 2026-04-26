@@ -50,11 +50,11 @@ th{
 border-bottom: 2px solid black;
 padding-bottom: 8px;
 }
-#acc , #ac{
+.acc , .ac{
 display: flex;
 flex-direction: column;
 }
-#acc:hover , #ac:hover {
+.acc:hover , .ac:hover {
 background-color: red;
 font-weight: bold;
 transition: 0.2s ease-in;
@@ -71,6 +71,6 @@ transition: 0.3s ease-in;
 border-bottom: 2px dashed black;
 line-height: 2;
 }
-#ac:hover{
+.ac:hover{
 background-color: lightgreen;
 }

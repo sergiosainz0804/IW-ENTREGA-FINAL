@@ -17,3 +17,18 @@ def Lista_Material(request):
 
 def DetallesM(request):
     return render(request, 'Incidencias_Almacen/Detalles_Material.html')
+
+def RegistrarM(request):
+    return render(request, 'Incidencias_Almacen/Registrar_Material.html')
+
+def Borrar(request):
+    return render(request, 'Incidencias_Almacen/confirmar_borrado.html')
+
+def Lista_Proveedores(request):
+    return render(request, 'Incidencias_Almacen/Lista_Proveedores.html')
+
+def DetallesP(request):
+    return render(request, 'Incidencias_Almacen/Detalles_Proveedor.html')
+
+def RegistrarP(request):
+    return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html')

@@ -1,34 +1,92 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.views.generic import ListView, DetailView
+from .models import Incidencia, Material, Proveedor
+from .forms import IncidenciaForm, MaterialForm, ProveedorForm
 
+#vista dashbiard
 def dashboard(request):
-    return render(request, 'Incidencias_Almacen/DashBoard.html')
+    ultimas_incidencias = Incidencia.objects.order_by('-fecha_alta')[:5]
+    return render(request, 'Incidencias_Almacen/DashBoard.html', {'ultimas_incidencias': ultimas_incidencias})
 
-def lista(request):
-    return render(request , 'Incidencias_Almacen/lista_incidencia.html')
+#incidencias
+class IncidenciaListView(ListView):
+    model = Incidencia
+    template_name = 'Incidencias_Almacen/lista_incidencia.html'
+    context_object_name = 'incidencias'
+    queryset = Incidencia.objects.order_by('titulo')
 
-def Detalles(request):
-    return render(request, 'Incidencias_Almacen/Detalle_Incidencia.html')
+class IncidenciaDetailView(DetailView):
+    model = Incidencia
+    template_name = 'Incidencias_Almacen/Detalle_Incidencia.html'
+    context_object_name = 'incidencia'
+   
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo_pagina'] = 'Detalles de la Incidencia'
+        return context
 
 def Registrar(request):
-    return render (request, 'Incidencias_Almacen/Registrar_Incidencia.html')
+    if request.method == 'POST':
+        form = IncidenciaForm(request.POST)
+        if form.is_valid():
+            titulo = form.cleaned_data['titulo']
+            Incidencia.objects.create(**form.cleaned_data)
+            return HttpResponse(f"Incidencia '{titulo}' recibida y procesada correctamente.")
+    else:
+        form = IncidenciaForm()
+    return render(request, 'Incidencias_Almacen/Registrar_Incidencia.html', {'form': form})
 
-def Lista_Material(request):
-    return render(request, 'Incidencias_Almacen/Lista_Materiales.html')
+def Borrar(request, pk):
+    incidencia = get_object_or_404(Incidencia, pk=pk)
+    if request.method == 'POST':
+        titulo = incidencia.titulo
+        incidencia.delete()
+        return HttpResponse(f"Se ha borrado la incidencia: {titulo}")
+    return render(request, 'Incidencias_Almacen/confirmar_borrado.html', {'incidencia': incidencia})
 
-def DetallesM(request):
-    return render(request, 'Incidencias_Almacen/Detalles_Material.html')
+#Materiales
+class MaterialListView(ListView):
+    model = Material
+    template_name = 'Incidencias_Almacen/Lista_Materiales.html'
+    context_object_name = 'materiales'
+    queryset = Material.objects.order_by('nombre')
+
+class MaterialDetailView(DetailView):
+    model = Material
+    template_name = 'Incidencias_Almacen/Detalles_Material.html'
+    context_object_name = 'material'
 
 def RegistrarM(request):
-    return render(request, 'Incidencias_Almacen/Registrar_Material.html')
+    if request.method == 'POST':
+        form = MaterialForm(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data['nombre']
+            Material.objects.create(**form.cleaned_data)
+            return HttpResponse(f"Material '{nombre}' registrado con éxito.")
+    else:
+        form = MaterialForm()
+    return render(request, 'Incidencias_Almacen/Registrar_Material.html', {'form': form})
 
-def Borrar(request):
-    return render(request, 'Incidencias_Almacen/confirmar_borrado.html')
+#Proveedores
+class ProveedorListView(ListView):
+    model = Proveedor
+    template_name = 'Incidencias_Almacen/Lista_Proveedores.html'
+    context_object_name = 'proveedores'
+    queryset = Proveedor.objects.order_by('nombre_comercial')
 
-def Lista_Proveedores(request):
-    return render(request, 'Incidencias_Almacen/Lista_Proveedores.html')
-
-def DetallesP(request):
-    return render(request, 'Incidencias_Almacen/Detalles_Proveedor.html')
+class ProveedorDetailView(DetailView):
+    model = Proveedor
+    template_name = 'Incidencias_Almacen/Detalles_Proveedor.html'
+    context_object_name = 'proveedor'
 
 def RegistrarP(request):
-    return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html')
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            empresa = form.cleaned_data['nombre_comercial']
+            Proveedor.objects.create(**form.cleaned_data)
+            return HttpResponse(f"Proveedor '{empresa}' guardado correctamente.")
+    else:
+        form = ProveedorForm()
+    return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html', {'form': form})

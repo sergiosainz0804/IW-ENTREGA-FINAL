@@ -50,14 +50,16 @@
                         <th> Baja </th>
                         <th> Media </th>
                         <th> Alta </th>
+                        <th> Urgente </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td> <span id="num"> Num-Incidencias </span> </td>
-                        <td> 0 </td>
-                        <td> 0 </td>
-                        <td> 0 </td>
+                        <td> <span id="num"> {{ total_incidencias }} </span> </td>
+                        <td> {{ incidencias_baja }} </td>
+                        <td> {{ incidencias_media }} </td>
+                        <td> {{ incidencias_alta }} </td>
+                        <td> {{ incidencias_urgente }} </td>
                     </tr>
                 </tbody>
             </table>

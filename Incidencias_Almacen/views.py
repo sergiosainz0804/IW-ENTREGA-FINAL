@@ -16,6 +16,15 @@ class IncidenciaListView(ListView):
     context_object_name = 'incidencias'
     queryset = Incidencia.objects.order_by('titulo')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_incidencias'] = Incidencia.objects.count()
+        context['incidencias_baja'] = Incidencia.objects.filter(nivel_prioridad='BAJA').count()
+        context['incidencias_media'] = Incidencia.objects.filter(nivel_prioridad='MEDIA').count()
+        context['incidencias_alta'] = Incidencia.objects.filter(nivel_prioridad='ALTA').count()
+        context['incidencias_urgente'] = Incidencia.objects.filter(nivel_prioridad='URGENTE').count()
+        return context
+
 class IncidenciaDetailView(DetailView):
     model = Incidencia
     template_name = 'Incidencias_Almacen/Detalle_Incidencia.html'

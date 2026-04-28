@@ -2,26 +2,44 @@
 {% load static %}
 
 {% block h1_titulo %} Registrar Material {% endblock %}
-{% block p_texto %} <a href="{% url 'DashBoard'%}"> DashBoard </a> {% endblock %}
+{% block p_texto %} <a href="{% url 'DashBoard' %}"> DashBoard </a> {% endblock %}
 
 {% block cod_css %}
-<link href="{% static 'Incidencias_Almacen/css/Registrar_Material.css'%}" rel="stylesheet" />
-{%endblock%}
-
+<link href="{% static 'Incidencias_Almacen/css/Registrar_Material.css' %}" rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
-
 <main>
-    <form method="post" action="{% url 'RegistrarM' %}" class="django-form">
+    <form method="post" action="{% url 'RegistrarM' %}">
         {% csrf_token %}
-        <section class="info" style="padding: 20px;">
-            <h2> Información del Material </h2>
-            {{ form.as_p }}
-            <button type="submit" id="btn"
-                style="margin-top:20px; padding:10px 20px; background-color:#333; color:white; border:none; cursor:pointer;">Registrar
-                Material</button>
+        
+        <section class="info">
+            <h2> Datos del Producto </h2>
+            
+            <label>{{ form.nombre.label }}</label>
+            {{ form.nombre }}
+
+            <label>{{ form.codigo_interno.label }}</label>
+            {{ form.codigo_interno }}
+
+            <label>{{ form.descripcion.label }}</label>
+            {{ form.descripcion }}
+        </section>
+
+        <section class="selects">
+            <h2> Clasificación y Ubicación </h2>
+
+            <label>{{ form.familia.label }}</label>
+            {{ form.familia }}
+
+            <label>{{ form.ubicacion_habitual.label }}</label>
+            {{ form.ubicacion_habitual }}
+
+            <label>{{ form.proveedor_principal.label }}</label>
+            {{ form.proveedor_principal }}
+
+            <button type="submit" id="btn">Registrar Material</button>
         </section>
     </form>
 </main>
-
 {% endblock %}

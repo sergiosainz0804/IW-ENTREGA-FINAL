@@ -40,5 +40,5 @@ class ProveedorForm(forms.Form):
     nombre_comercial = forms.CharField(label="Nombre Comercial", max_length=150)
     email = forms.EmailField(label="Email")
     telefono = forms.CharField(label="Teléfono", max_length=20)
-    direccion = forms.CharField(label="Dirección", widget=forms.Textarea)
+    direccion = forms.CharField(label="Dirección", max_length=200)
 

@@ -29,7 +29,7 @@
                 <td> {{ material.ubicacion_habitual }} </td>
                 <td> {{ material.proveedor_principal|default:"-" }} </td>
                 <td>
-                    <a href="{% url 'DetalleM' material.pk %}" class="ac"> Detalles </a>
+                    <a href="{% url 'DetallesM' material.pk %}" class="ac"> Detalles </a>
                 </td>
             </tr>
             {% empty %}

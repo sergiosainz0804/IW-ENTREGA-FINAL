@@ -104,3 +104,37 @@ def RegistrarP(request):
 def Registrado(request):
     
     return render(request, 'Incidencias_Almacen/Registrado.html')
+
+def ModificarIncidencia(request, pk):
+
+    inci = get_object_or_404(Incidencia, pk = pk)
+
+    if request.method == 'POST':
+
+        form = IncidenciaForm(request.POST)
+        if form.is_valid():
+           
+            inci.codigo = form.cleaned_data['codigo']
+            inci.titulo = form.cleaned_data['titulo']
+            inci.descripcion_detallada = form.cleaned_data['descripcion_detallada']
+            inci.estado = form.cleaned_data['estado']
+            inci.nivel_prioridad = form.cleaned_data['nivel_prioridad']
+            inci.zona_almacen = form.cleaned_data['zona_almacen']
+            inci.operario_asignado = form.cleaned_data['operario_asignado']
+            inci.material_afectado = form.cleaned_data['material_afectado']
+        
+        inci.save()
+        return redirect('Listado')
+    
+    else:
+        form = IncidenciaForm(initial={ 
+            'codigo': inci.codigo,
+            'titulo': inci.titulo,
+            'descripcion_detallada': inci.descripcion_detallada,
+            'estado': inci.estado,
+            'nivel_prioridad': inci.nivel_prioridad,
+            'zona_almacen': inci.zona_almacen,
+            'operario_asignado': inci.operario_asignado,
+            'material_afectado': inci.material_afectado,
+        })
+    return render(request, 'Incidencias_Almacen/Modificar_Incidencia.html', {'form': form})

@@ -1,0 +1,51 @@
+{% extends 'Incidencias_Almacen/base.html' %}
+{% load static %}
+
+{% block cod_css %}
+<link href="{% static 'Incidencias_Almacen/css/Registrar_Incidencia.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block h1_titulo %} Registrar Incidencia {% endblock %}
+{% block p_texto %} <a href="{% url 'DashBoard' %}"> Dashboard </a> {% endblock %}
+
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+
+        <section class="info">
+            <h2> Datos de la Avería </h2>
+            
+            <label>{{ form.codigo.label }}</label>
+            {{ form.codigo }}
+
+            <label>{{ form.titulo.label }}</label>
+            {{ form.titulo }}
+
+            <label>{{ form.descripcion_detallada.label }}</label>
+            {{ form.descripcion_detallada }}
+        </section>
+
+        <section class="selects">
+            <h2> Clasificación </h2>
+
+            <label>{{ form.estado.label }}</label>
+            {{ form.estado }}
+
+            <label>{{ form.nivel_prioridad.label }}</label>
+            {{ form.nivel_prioridad }}
+
+            <label>{{ form.zona_almacen.label }}</label>
+            {{ form.zona_almacen }}
+
+            <label>{{ form.operario_asignado.label }}</label>
+            {{ form.operario_asignado }}
+
+            <label>{{ form.material_afectado.label }}</label>
+            {{ form.material_afectado }}
+
+            <button type="submit" id="btn">Actualizar Incidencia</button>
+        </section>
+    </form>
+</main>
+{% endblock %}

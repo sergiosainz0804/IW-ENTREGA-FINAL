@@ -21,4 +21,7 @@ urlpatterns = [
     path('DetallesP/<int:pk>/', views.ProveedorDetailView.as_view(), name='DetallesP'),
 
     path('Registrado/', views.Registrado, name='Registrado'),
+    
+    path('ModificarI/<int:pk>/', views.ModificarIncidencia, name='ModificarI')
+
 ]

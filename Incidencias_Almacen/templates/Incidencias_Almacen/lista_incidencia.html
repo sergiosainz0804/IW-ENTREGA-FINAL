@@ -30,6 +30,7 @@
                         <td> {{ incidencia.get_estado_display }} </td>
                         <td>
                             <a href="{% url 'DetallesI' incidencia.pk %}" class="ac"> Detalles </a>
+                            <a href="{% url 'ModificarI' incidencia.pk %}" class="acc"> Modificar </a>
                             <a href="{% url 'Borrar' incidencia.pk %}" class="acc"> quitar </a>
                         </td>
                     </tr>

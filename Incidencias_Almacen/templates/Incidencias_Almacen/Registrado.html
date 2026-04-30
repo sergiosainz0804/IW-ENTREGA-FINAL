@@ -1,0 +1,19 @@
+{% extends 'Incidencias_Almacen/base.html' %}
+{% load static %}
+
+{%block cod_css%}
+<link href="{%static 'Incidencias_Almacen/css/Registrado.css'%}" rel="stylesheet" />
+{%endblock%}
+{% block h1_titulo%} Registrado {% endblock %}
+{% block p_texto%} <a href="{% url 'DashBoard'%}"> Dashboard </a> {% endblock%}
+
+{% block content %}
+
+<main>
+    <h2> Se ha Registrado Correctamente </h2>
+    <img  src="{% static 'Incidencias_Almacen/img/check.png'%}">
+
+    <p> <a href="{% url 'DashBoard'%}"> Volver al DashBoard </a> </p>  
+</main>
+
+{%endblock%}

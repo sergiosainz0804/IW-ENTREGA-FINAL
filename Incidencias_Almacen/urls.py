@@ -6,7 +6,7 @@ urlpatterns = [
     
   
     path('Lista/', views.IncidenciaListView.as_view(), name='Listado'),
-    path('Detalles/<int:pk>/', views.IncidenciaDetailView.as_view(), name='Detalles'),
+    path('Detalles/<int:pk>/', views.IncidenciaDetailView.as_view(), name='DetallesI'),
     path('Registrar/', views.Registrar, name='Registrar'),
     path('Borrar/<int:pk>/', views.Borrar, name='Borrar'),
     
@@ -19,4 +19,6 @@ urlpatterns = [
     path('ListaP/', views.ProveedorListView.as_view(), name='Lista_Proveedor'),
     path('RegistrarP/', views.RegistrarP, name='RegistrarP'),
     path('DetallesP/<int:pk>/', views.ProveedorDetailView.as_view(), name='DetallesP'),
+
+    path('Registrado/', views.Registrado, name='Registrado'),
 ]

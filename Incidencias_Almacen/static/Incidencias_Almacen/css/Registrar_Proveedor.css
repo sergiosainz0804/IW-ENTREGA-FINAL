@@ -18,13 +18,6 @@ form{
     margin: 20px auto;
   
 }
-#frm{
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    gap: 40px;
-}
-
 section{
     display: flex;
     flex-direction: column;

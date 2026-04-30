@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from .models import Incidencia, Material, Proveedor
@@ -41,7 +41,7 @@ def Registrar(request):
         if form.is_valid():
             titulo = form.cleaned_data['titulo']
             Incidencia.objects.create(**form.cleaned_data)
-            return HttpResponse(f"Incidencia '{titulo}' recibida y procesada correctamente.")
+            return redirect('Registrado')
     else:
         form = IncidenciaForm()
     return render(request, 'Incidencias_Almacen/Registrar_Incidencia.html', {'form': form})
@@ -49,9 +49,8 @@ def Registrar(request):
 def Borrar(request, pk):
     incidencia = get_object_or_404(Incidencia, pk=pk)
     if request.method == 'POST':
-        titulo = incidencia.titulo
         incidencia.delete()
-        return HttpResponse(f"Se ha borrado la incidencia: {titulo}")
+        return redirect('DashBoard')
     return render(request, 'Incidencias_Almacen/confirmar_borrado.html', {'incidencia': incidencia})
 
 #Materiales
@@ -72,7 +71,8 @@ def RegistrarM(request):
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
             Material.objects.create(**form.cleaned_data)
-            return HttpResponse(f"Material '{nombre}' registrado con éxito.")
+            return redirect('Registrado')
+
     else:
         form = MaterialForm()
     return render(request, 'Incidencias_Almacen/Registrar_Material.html', {'form': form})
@@ -95,7 +95,12 @@ def RegistrarP(request):
         if form.is_valid():
             empresa = form.cleaned_data['nombre_comercial']
             Proveedor.objects.create(**form.cleaned_data)
-            return HttpResponse(f"Proveedor '{empresa}' guardado correctamente.")
+            return redirect('Registrado')
+
     else:
         form = ProveedorForm()
     return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html', {'form': form})
+
+def Registrado(request):
+    
+    return render(request, 'Incidencias_Almacen/Registrado.html')

@@ -22,6 +22,8 @@ urlpatterns = [
 
     path('Registrado/', views.Registrado, name='Registrado'),
     
-    path('ModificarI/<int:pk>/', views.ModificarIncidencia, name='ModificarI')
+    path('ModificarI/<int:pk>/', views.ModificarIncidencia, name='ModificarI'),
+    path('ModificarM/<int:pk>/', views.ModificarMaterial, name='ModificarM'),
+    path('ModificarP/<int:pk>/', views.ModificarProveedor, name='ModificarP')
 
 ]

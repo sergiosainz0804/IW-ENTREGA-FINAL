@@ -30,6 +30,7 @@
                 <td> {{ material.proveedor_principal|default:"-" }} </td>
                 <td>
                     <a href="{% url 'DetallesM' material.pk %}" class="ac"> Detalles </a>
+                    <a href="{% url 'ModificarM' material.pk %}" class="acc"> Modificar </a>
                 </td>
             </tr>
             {% empty %}

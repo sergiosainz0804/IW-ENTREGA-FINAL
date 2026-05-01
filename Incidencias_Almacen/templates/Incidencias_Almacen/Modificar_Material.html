@@ -1,0 +1,45 @@
+{% extends 'Incidencias_Almacen/base.html' %}
+{% load static %}
+
+{% block h1_titulo %} Modificar Material {% endblock %}
+{% block p_texto %} <a href="{% url 'Lista_Material' %}"> Lista de Materiales </a> {% endblock %}
+
+{% block cod_css %}
+<link href="{% static 'Incidencias_Almacen/css/Registrar_Material.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        
+        <section class="info">
+            <h2> Datos del Producto </h2>
+            
+            <label>{{ form.nombre.label }}</label>
+            {{ form.nombre }}
+
+            <label>{{ form.codigo_interno.label }}</label>
+            {{ form.codigo_interno }}
+
+            <label>{{ form.descripcion.label }}</label>
+            {{ form.descripcion }}
+        </section>
+
+        <section class="selects">
+            <h2> Clasificación y Ubicación </h2>
+
+            <label>{{ form.familia.label }}</label>
+            {{ form.familia }}
+
+            <label>{{ form.ubicacion_habitual.label }}</label>
+            {{ form.ubicacion_habitual }}
+
+            <label>{{ form.proveedor_principal.label }}</label>
+            {{ form.proveedor_principal }}
+
+            <button type="submit" id="btn">Actualizar Material</button>
+        </section>
+    </form>
+</main>
+{% endblock %}

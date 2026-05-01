@@ -1,0 +1,42 @@
+{% extends 'Incidencias_Almacen/Base.html' %}
+{% load static %}
+
+{% block h1_titulo %} Modificar Proveedor {% endblock %}
+{% block p_texto %} <a href="{% url 'Lista_Proveedor' %}"> Lista de Proveedores </a> {% endblock %}
+
+{% block cod_css %}
+<link href="{% static 'Incidencias_Almacen/css/Registrar_Proveedor.css' %}" rel='stylesheet' />
+{% endblock %}
+
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        
+        <section class="info">
+            <h2> Contacto Comercial </h2>
+            
+            <label>{{ form.nombre_comercial.label }}</label>
+            {{ form.nombre_comercial }}
+
+            <label>{{ form.email.label }}</label>
+            {{ form.email }}
+
+            <label>{{ form.telefono.label }}</label>
+            {{ form.telefono }}
+        </section>
+
+        <section class="selects">
+            <h2> Identificación y Sede </h2>
+
+            <label>{{ form.cif.label }}</label>
+            {{ form.cif }}
+
+            <label>{{ form.direccion.label }}</label>
+            {{ form.direccion }}
+
+            <button type="submit" id="btn">Actualizar Proveedor</button>
+        </section>
+    </form>
+</main>
+{% endblock %}

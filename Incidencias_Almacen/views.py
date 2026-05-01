@@ -138,3 +138,53 @@ def ModificarIncidencia(request, pk):
             'material_afectado': inci.material_afectado,
         })
     return render(request, 'Incidencias_Almacen/Modificar_Incidencia.html', {'form': form})
+
+def ModificarMaterial(request, pk):
+    material = get_object_or_404(Material, pk=pk)
+
+    if request.method == 'POST':
+        form = MaterialForm(request.POST)
+        if form.is_valid():
+            material.codigo_interno = form.cleaned_data['codigo_interno']
+            material.nombre = form.cleaned_data['nombre']
+            material.descripcion = form.cleaned_data['descripcion']
+            material.familia = form.cleaned_data['familia']
+            material.ubicacion_habitual = form.cleaned_data['ubicacion_habitual']
+            material.proveedor_principal = form.cleaned_data['proveedor_principal']
+            
+            material.save()
+            return redirect('Lista_Material')
+    else:
+        form = MaterialForm(initial={
+            'codigo_interno': material.codigo_interno,
+            'nombre': material.nombre,
+            'descripcion': material.descripcion,
+            'familia': material.familia,
+            'ubicacion_habitual': material.ubicacion_habitual,
+            'proveedor_principal': material.proveedor_principal,
+        })
+    return render(request, 'Incidencias_Almacen/Modificar_Material.html', {'form': form})
+
+def ModificarProveedor(request, pk):
+    proveedor = get_object_or_404(Proveedor, pk=pk)
+
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            proveedor.cif = form.cleaned_data['cif']
+            proveedor.nombre_comercial = form.cleaned_data['nombre_comercial']
+            proveedor.email = form.cleaned_data['email']
+            proveedor.telefono = form.cleaned_data['telefono']
+            proveedor.direccion = form.cleaned_data['direccion']
+            
+            proveedor.save()
+            return redirect('Lista_Proveedor')
+    else:
+        form = ProveedorForm(initial={
+            'cif': proveedor.cif,
+            'nombre_comercial': proveedor.nombre_comercial,
+            'email': proveedor.email,
+            'telefono': proveedor.telefono,
+            'direccion': proveedor.direccion,
+        })
+    return render(request, 'Incidencias_Almacen/Modificar_Proveedor.html', {'form': form})

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
+from django.db import IntegrityError
 from .models import Incidencia, Material, Proveedor
 from .forms import IncidenciaForm, MaterialForm, ProveedorForm
 
@@ -39,9 +40,11 @@ def Registrar(request):
     if request.method == 'POST':
         form = IncidenciaForm(request.POST)
         if form.is_valid():
-            titulo = form.cleaned_data['titulo']
-            Incidencia.objects.create(**form.cleaned_data)
-            return redirect('Registrado')
+            try:
+                Incidencia.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('codigo', 'Ya existe una incidencia con este código.')
     else:
         form = IncidenciaForm()
     return render(request, 'Incidencias_Almacen/Registrar_Incidencia.html', {'form': form})
@@ -69,9 +72,11 @@ def RegistrarM(request):
     if request.method == 'POST':
         form = MaterialForm(request.POST)
         if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            Material.objects.create(**form.cleaned_data)
-            return redirect('Registrado')
+            try:
+                Material.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('codigo_interno', 'Ya existe un material con este código interno.')
 
     else:
         form = MaterialForm()
@@ -93,9 +98,11 @@ def RegistrarP(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
         if form.is_valid():
-            empresa = form.cleaned_data['nombre_comercial']
-            Proveedor.objects.create(**form.cleaned_data)
-            return redirect('Registrado')
+            try:
+                Proveedor.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('cif', 'Ya existe un proveedor con este CIF.')
 
     else:
         form = ProveedorForm()
@@ -123,8 +130,11 @@ def ModificarIncidencia(request, pk):
             inci.operario_asignado = form.cleaned_data['operario_asignado']
             inci.material_afectado = form.cleaned_data['material_afectado']
         
-        inci.save()
-        return redirect('Listado')
+            try:
+                inci.save()
+                return redirect('Listado')
+            except IntegrityError:
+                form.add_error('codigo', 'Ya existe una incidencia con este código.')
     
     else:
         form = IncidenciaForm(initial={ 
@@ -152,8 +162,11 @@ def ModificarMaterial(request, pk):
             material.ubicacion_habitual = form.cleaned_data['ubicacion_habitual']
             material.proveedor_principal = form.cleaned_data['proveedor_principal']
             
-            material.save()
-            return redirect('Lista_Material')
+            try:
+                material.save()
+                return redirect('Lista_Material')
+            except IntegrityError:
+                form.add_error('codigo_interno', 'Ya existe un material con este código interno.')
     else:
         form = MaterialForm(initial={
             'codigo_interno': material.codigo_interno,
@@ -177,8 +190,11 @@ def ModificarProveedor(request, pk):
             proveedor.telefono = form.cleaned_data['telefono']
             proveedor.direccion = form.cleaned_data['direccion']
             
-            proveedor.save()
-            return redirect('Lista_Proveedor')
+            try:
+                proveedor.save()
+                return redirect('Lista_Proveedor')
+            except IntegrityError:
+                form.add_error('cif', 'Ya existe un proveedor con este CIF.')
     else:
         form = ProveedorForm(initial={
             'cif': proveedor.cif,
@@ -188,3 +204,17 @@ def ModificarProveedor(request, pk):
             'direccion': proveedor.direccion,
         })
     return render(request, 'Incidencias_Almacen/Modificar_Proveedor.html', {'form': form})
+
+def BorrarM(request, pk):
+    material = get_object_or_404(Material, pk=pk)
+    if request.method == 'POST':
+        material.delete()
+        return redirect('Lista_Material')
+    return render(request, 'Incidencias_Almacen/confirmar_borrado_material.html', {'material': material})
+
+def BorrarP(request, pk):
+    proveedor = get_object_or_404(Proveedor, pk=pk)
+    if request.method == 'POST':
+        proveedor.delete()
+        return redirect('Lista_Proveedor')
+    return render(request, 'Incidencias_Almacen/confirmar_borrado_proveedor.html', {'proveedor': proveedor})

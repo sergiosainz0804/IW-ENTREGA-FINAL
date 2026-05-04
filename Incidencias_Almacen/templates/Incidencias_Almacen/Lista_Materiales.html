@@ -31,6 +31,7 @@
                 <td>
                     <a href="{% url 'DetallesM' material.pk %}" class="ac"> Detalles </a>
                     <a href="{% url 'ModificarM' material.pk %}" class="acc"> Modificar </a>
+                    <a href="{% url 'BorrarM' material.pk %}" class="acc"> quitar </a>
                 </td>
             </tr>
             {% empty %}

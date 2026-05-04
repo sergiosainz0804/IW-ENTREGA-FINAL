@@ -9,7 +9,10 @@ urlpatterns = [
     path('Detalles/<int:pk>/', views.IncidenciaDetailView.as_view(), name='DetallesI'),
     path('Registrar/', views.Registrar, name='Registrar'),
     path('Borrar/<int:pk>/', views.Borrar, name='Borrar'),
-    
+    path('BorrarM/<int:pk>/', views.BorrarM, name='BorrarM'),
+    path('BorrarP/<int:pk>/', views.BorrarP, name='BorrarP'),
+
+
    
     path('Lista_Material/', views.MaterialListView.as_view(), name='Lista_Material'),
     path('RegistrarM/', views.RegistrarM, name='RegistrarM'),

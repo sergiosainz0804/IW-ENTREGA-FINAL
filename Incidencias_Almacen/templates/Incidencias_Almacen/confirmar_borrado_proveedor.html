@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Borrado</title>
+    <link href="{% static 'Incidencias_Almacen/css/confirmar_borrado.css'%}" rel="stylesheet"/>
+</head>
+<body>
+  
+    
+    <header> <h1> ¿Estás seguro de que quieres eliminar este proveedor? </h1> </header>
+
+    <main>
+        <div id="contenido">
+            <form method="post">
+                {% csrf_token %}
+                <img src="{% static 'Incidencias_Almacen/img/warningsign.jpg'%}"/>
+                <input type="submit" value="BORRAR" id="sbm">
+            </form>
+
+            <div class="foot">
+                <img src="{% static 'Incidencias_Almacen/img/warning.png' %}"/>
+                <p> <a href="{% url 'Lista_Proveedor'%}"> NO , Volver a la Lista  </a></p>
+                <img src="{% static 'Incidencias_Almacen/img/warning.png' %}"/>
+            </div>
+
+        </div>
+   
+    </main>
+  
+</body>
+</html>

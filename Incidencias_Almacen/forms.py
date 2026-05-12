@@ -42,3 +42,4 @@ class ProveedorForm(forms.Form):
     telefono = forms.CharField(label="Teléfono", max_length=20)
     direccion = forms.CharField(label="Dirección", max_length=200)
 
+

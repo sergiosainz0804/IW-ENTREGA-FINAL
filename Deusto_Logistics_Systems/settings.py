@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Incidencias_Almacen',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

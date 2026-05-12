@@ -1,7 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
 
+
+router = DefaultRouter()
+router.register(r'Incidencias', views.IncidenciaViewSet, basename = 'Incidencias')
+router.register(r'Materiales', views.MaterialViewSet, basename = 'Materiales')
+router.register(r'Proveedores', views.ProveedorViewSet, basename = 'Proveedores')
+router.register(r'Operarios', views.OperarioViewSet, basename = 'Operarios')
 urlpatterns = [
+
+    path('Incidencias_API/', include(router.urls)),
     path('', views.dashboard, name='DashBoard'),
     
   

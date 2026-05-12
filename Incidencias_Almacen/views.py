@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.db import IntegrityError
-from .models import Incidencia, Material, Proveedor
+from .models import Incidencia, Material, Proveedor , Operario
 from .forms import IncidenciaForm, MaterialForm, ProveedorForm
+from .serializers import IncidenciaSerializer, MaterialSerializer, ProveedorSerializer, OperarioSerializer
+from rest_framework import viewsets
 
 #vista dashbiard
 def dashboard(request):
@@ -218,3 +220,22 @@ def BorrarP(request, pk):
         proveedor.delete()
         return redirect('Lista_Proveedor')
     return render(request, 'Incidencias_Almacen/confirmar_borrado_proveedor.html', {'proveedor': proveedor})
+
+#serializacion
+
+class IncidenciaViewSet(viewsets.ModelViewSet):
+    queryset = Incidencia.objects.all()
+    serializer_class = IncidenciaSerializer
+
+class MaterialViewSet(viewsets.ModelViewSet):
+    queryset = Material.objects.all()
+    serializer_class = MaterialSerializer
+
+class ProveedorViewSet(viewsets.ModelViewSet):
+    queryset = Proveedor.objects.all()
+    serializer_class = ProveedorSerializer
+
+class OperarioViewSet(viewsets.ModelViewSet):
+    queryset = Operario.objects.all()
+    serializer_class = OperarioSerializer
+

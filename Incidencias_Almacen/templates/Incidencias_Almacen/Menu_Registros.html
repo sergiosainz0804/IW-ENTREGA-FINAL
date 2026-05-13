@@ -1,0 +1,20 @@
+{% extends 'Incidencias_Almacen/Base.html'%}
+{% load static %}
+
+
+{% block h1_titulo %} Menu de Registros {% endblock %}
+
+{% block cod_css %} <link href="{% static  'Incidencias_Almacen/css/Menu_Registros.css' %}" rel="stylesheet"/> {% endblock %}
+
+{% block content %}
+
+<main>
+    <ul>
+        <li> <a href="{% url 'Registrar'%}"> Registrar Incidencia </a></li>
+        <li> <a href="{% url 'RegistrarM'%}"> Registrar Material </a></li>
+        <li> <a href="{% url 'RegistrarP'%}">  Registrar Proveedor </a></li>
+    </ul>
+</main>
+
+
+{% endblock %}

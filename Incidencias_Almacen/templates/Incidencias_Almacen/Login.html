@@ -1,0 +1,32 @@
+{% extends 'Incidencias_Almacen/Base.html'%}
+{% load static %}
+
+{% block cod_css %} <link href="{% static 'Incidencias_Almacen/css/Login.css'%}" rel="stylesheet"/> {% endblock %}
+
+{% block h1_titulo %} Portal de Entrada  {%endblock%}
+{% block p_texto %} <a href="{% url 'DashBoard'%}"> DashBoard </a> {%endblock%}
+
+{% block content %}
+
+<main>
+   
+    <form method="post" id="login">
+         <h1> Login </h1>
+        {% csrf_token %}
+
+        <label> Introduzca su Usuario </label>
+        <input type="text" id="usuario">
+        
+        <label> Introduzca su Contraseña </label>
+        <input type="password" id="contra"/>
+
+        <input type="submit" id="sbm" value="ENTRAR"/>
+    </form>
+</main>
+
+<script src="{% static 'Incidencias_Almacen/js/Login.js'%}"></script>
+<script src="{% static 'Incidencias_Almacen/js/Registrar_Incidencia.js'%}"></script>
+
+
+{% endblock %}
+

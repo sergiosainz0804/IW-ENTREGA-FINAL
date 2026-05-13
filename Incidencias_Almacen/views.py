@@ -6,6 +6,7 @@ from .models import Incidencia, Material, Proveedor , Operario
 from .forms import IncidenciaForm, MaterialForm, ProveedorForm
 from .serializers import IncidenciaSerializer, MaterialSerializer, ProveedorSerializer, OperarioSerializer
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 #vista dashbiard
 def dashboard(request):
@@ -221,21 +222,33 @@ def BorrarP(request, pk):
         return redirect('Lista_Proveedor')
     return render(request, 'Incidencias_Almacen/confirmar_borrado_proveedor.html', {'proveedor': proveedor})
 
+#Login
+
+def Login(request):
+    return render(request, 'Incidencias_Almacen/Login.html')
+
+def Menu(request):
+    return render(request, 'Incidencias_Almacen/Menu_Registros.html')
+
 #serializacion
 
 class IncidenciaViewSet(viewsets.ModelViewSet):
     queryset = Incidencia.objects.all()
     serializer_class = IncidenciaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class MaterialViewSet(viewsets.ModelViewSet):
     queryset = Material.objects.all()
     serializer_class = MaterialSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class ProveedorViewSet(viewsets.ModelViewSet):
     queryset = Proveedor.objects.all()
     serializer_class = ProveedorSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class OperarioViewSet(viewsets.ModelViewSet):
     queryset = Operario.objects.all()
     serializer_class = OperarioSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 

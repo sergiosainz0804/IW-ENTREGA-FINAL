@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
-
+from rest_framework_simplejwt.views import TokenObtainPairView , TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'Incidencias', views.IncidenciaViewSet, basename = 'Incidencias')
@@ -9,7 +9,6 @@ router.register(r'Materiales', views.MaterialViewSet, basename = 'Materiales')
 router.register(r'Proveedores', views.ProveedorViewSet, basename = 'Proveedores')
 router.register(r'Operarios', views.OperarioViewSet, basename = 'Operarios')
 urlpatterns = [
-
     path('Incidencias_API/', include(router.urls)),
     path('', views.dashboard, name='DashBoard'),
     
@@ -36,6 +35,16 @@ urlpatterns = [
     
     path('ModificarI/<int:pk>/', views.ModificarIncidencia, name='ModificarI'),
     path('ModificarM/<int:pk>/', views.ModificarMaterial, name='ModificarM'),
-    path('ModificarP/<int:pk>/', views.ModificarProveedor, name='ModificarP')
+    path('ModificarP/<int:pk>/', views.ModificarProveedor, name='ModificarP'),
+
+    #Login
+    path('Login/', views.Login, name = 'Login'),
+    path('Menu/', views.Menu, name = 'Menu'),
+
+
+    #JWT
+
+    path('api/token/', TokenObtainPairView.as_view(), name = 'obtener_token'),
+    path('api/token/refresh', TokenRefreshView.as_view() , name = 'refresh_token')
 
 ]

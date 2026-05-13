@@ -5,3 +5,7 @@ mínimas exigidas en la rúbrica.
 
 
 
+Usuarios y Contraseña:
+Operario1: Prueba1234
+Operario2: Prueba4321
+Operario3: 1234Prueba

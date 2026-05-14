@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView , TokenRefreshView
+from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
 router.register(r'Incidencias', views.IncidenciaViewSet, basename = 'Incidencias')
@@ -38,7 +39,7 @@ urlpatterns = [
     path('ModificarP/<int:pk>/', views.ModificarProveedor, name='ModificarP'),
 
     #Login
-    path('Login/', views.Login, name = 'Login'),
+    path('Login/', auth_views.LoginView.as_view(template_name='Incidencias_Almacen/Login.html'), name='Login'),
     path('Menu/', views.Menu, name = 'Menu'),
 
 

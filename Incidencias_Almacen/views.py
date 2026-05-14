@@ -7,6 +7,74 @@ from .forms import IncidenciaForm, MaterialForm, ProveedorForm
 from .serializers import IncidenciaSerializer, MaterialSerializer, ProveedorSerializer, OperarioSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.contrib.auth.decorators import login_required
+from rest_framework_simplejwt.tokens import RefreshToken
+
+#login en todas las de registro
+@login_required
+def Menu(request):
+    refresh = RefreshToken.for_user(request.user)
+    return render(request, 'Incidencias_Almacen/Menu_Registros.html', {
+        'jwt_token': str(refresh.access_token)
+    })
+
+@login_required
+def Registrar(request):
+    refresh = RefreshToken.for_user(request.user)
+    if request.method == 'POST':
+        form = IncidenciaForm(request.POST)
+        if form.is_valid():
+            try:
+                Incidencia.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('codigo', 'Ya existe una incidencia con este código.')
+    else:
+        form = IncidenciaForm()
+    
+    return render(request, 'Incidencias_Almacen/Registrar_Incidencia.html', {
+        'form': form,
+        'jwt_token': str(refresh.access_token)
+    })
+
+@login_required
+def RegistrarM(request):
+    refresh = RefreshToken.for_user(request.user)
+    if request.method == 'POST':
+        form = MaterialForm(request.POST)
+        if form.is_valid():
+            try:
+                Material.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('codigo_interno', 'Ya existe un material con este código interno.')
+    else:
+        form = MaterialForm()
+
+    return render(request, 'Incidencias_Almacen/Registrar_Material.html', {
+        'form': form,
+        'jwt_token': str(refresh.access_token)
+    })
+
+
+@login_required
+def RegistrarP(request):
+    refresh = RefreshToken.for_user(request.user)
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            try:
+                Proveedor.objects.create(**form.cleaned_data)
+                return redirect('Registrado')
+            except IntegrityError:
+                form.add_error('cif', 'Ya existe un proveedor con este CIF.')
+
+    else:
+        form = ProveedorForm()
+    return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html', {
+        'form': form,
+        'jwt_token': str(refresh.access_token)
+    })
 
 #vista dashbiard
 def dashboard(request):
@@ -39,18 +107,7 @@ class IncidenciaDetailView(DetailView):
         context['titulo_pagina'] = 'Detalles de la Incidencia'
         return context
 
-def Registrar(request):
-    if request.method == 'POST':
-        form = IncidenciaForm(request.POST)
-        if form.is_valid():
-            try:
-                Incidencia.objects.create(**form.cleaned_data)
-                return redirect('Registrado')
-            except IntegrityError:
-                form.add_error('codigo', 'Ya existe una incidencia con este código.')
-    else:
-        form = IncidenciaForm()
-    return render(request, 'Incidencias_Almacen/Registrar_Incidencia.html', {'form': form})
+
 
 def Borrar(request, pk):
     incidencia = get_object_or_404(Incidencia, pk=pk)
@@ -71,19 +128,7 @@ class MaterialDetailView(DetailView):
     template_name = 'Incidencias_Almacen/Detalles_Material.html'
     context_object_name = 'material'
 
-def RegistrarM(request):
-    if request.method == 'POST':
-        form = MaterialForm(request.POST)
-        if form.is_valid():
-            try:
-                Material.objects.create(**form.cleaned_data)
-                return redirect('Registrado')
-            except IntegrityError:
-                form.add_error('codigo_interno', 'Ya existe un material con este código interno.')
 
-    else:
-        form = MaterialForm()
-    return render(request, 'Incidencias_Almacen/Registrar_Material.html', {'form': form})
 
 #Proveedores
 class ProveedorListView(ListView):
@@ -97,19 +142,6 @@ class ProveedorDetailView(DetailView):
     template_name = 'Incidencias_Almacen/Detalles_Proveedor.html'
     context_object_name = 'proveedor'
 
-def RegistrarP(request):
-    if request.method == 'POST':
-        form = ProveedorForm(request.POST)
-        if form.is_valid():
-            try:
-                Proveedor.objects.create(**form.cleaned_data)
-                return redirect('Registrado')
-            except IntegrityError:
-                form.add_error('cif', 'Ya existe un proveedor con este CIF.')
-
-    else:
-        form = ProveedorForm()
-    return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html', {'form': form})
 
 def Registrado(request):
     
@@ -222,13 +254,9 @@ def BorrarP(request, pk):
         return redirect('Lista_Proveedor')
     return render(request, 'Incidencias_Almacen/confirmar_borrado_proveedor.html', {'proveedor': proveedor})
 
-#Login
 
-def Login(request):
-    return render(request, 'Incidencias_Almacen/Login.html')
 
-def Menu(request):
-    return render(request, 'Incidencias_Almacen/Menu_Registros.html')
+
 
 #serializacion
 

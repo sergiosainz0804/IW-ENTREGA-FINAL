@@ -32,5 +32,11 @@
             <img src="{% static 'Incidencias_Almacen/img/warning.png' %}"/>
         </div>
     </footer>
+    
+
+    <script>
+        const TOKEN_GLOBAL = "{{ jwt_token|default:'' }}";
+
+    </script>
 </body>
 </html>

@@ -9,6 +9,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.contrib.auth.decorators import login_required
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import logout as auth_logout
 
 #login en todas las de registro
 @login_required
@@ -75,6 +76,11 @@ def RegistrarP(request):
         'form': form,
         'jwt_token': str(refresh.access_token)
     })
+#logout
+
+def logout(request):
+    auth_logout(request)
+    return redirect('DashBoard')
 
 #vista dashbiard
 def dashboard(request):

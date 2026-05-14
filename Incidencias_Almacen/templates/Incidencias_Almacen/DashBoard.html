@@ -29,6 +29,13 @@
 
                 <li> <a href="{% url 'RegistrarP'%}"> Registrar Proveedor </a></li>
             </ul>
+            
+            {% if user.is_authenticated %}
+            <ul class="logout">
+            <h2 class="logout"> Logout </h2>
+            <li class="logout"> <a href="{% url 'logout'%}"> Cerrar Sesión </a></li>
+           </ul>
+           {% endif%}
         </nav>
     </main>
 

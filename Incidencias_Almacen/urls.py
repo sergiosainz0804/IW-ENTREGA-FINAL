@@ -42,6 +42,9 @@ urlpatterns = [
     path('Login/', auth_views.LoginView.as_view(template_name='Incidencias_Almacen/Login.html'), name='Login'),
     path('Menu/', views.Menu, name = 'Menu'),
 
+    #Logout
+    path('DashboardL/', views.logout, name = 'logout'),
+
 
     #JWT
 

@@ -84,3 +84,26 @@ color: white;
 font-weight: bold;
 transition: 0.3s ease-in;
 }
+
+/* formularios */
+
+.campo-error {
+    border-color: red;
+    background-color: white;
+    box-shadow: 3px 3px red;
+}
+
+.campo-ok {
+    border-color: lightgreen;
+    background-color: white;
+    box-shadow: 3px 3px lightgreen;
+}
+
+.aviso-error {
+    display: block;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}

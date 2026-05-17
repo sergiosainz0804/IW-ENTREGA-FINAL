@@ -10,6 +10,15 @@
 {%block content%}
 
 <main>
+    <form method="GET" class="buscador-container">
+        <div class="filtro-group">
+            <label for="q">Buscar</label>
+            <input type="text" name="q" id="q" placeholder="CIF, Empresa, email..." value="{{ request.GET.q }}">
+        </div>
+        <button type="submit" class="btn-buscar">Filtrar</button>
+        <a href="{% url 'Lista_Proveedor' %}" class="btn-limpiar">Limpiar</a>
+    </form>
+    <div class="tabla-contenedor">
     <table>
         <thead>
             <tr>
@@ -39,5 +48,6 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 </main>
 {%endblock%}

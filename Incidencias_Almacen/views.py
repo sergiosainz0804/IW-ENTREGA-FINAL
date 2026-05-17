@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.db import IntegrityError
 from .models import Incidencia, Material, Proveedor , Operario
@@ -74,7 +75,7 @@ def RegistrarP(request):
         form = ProveedorForm()
     return render(request, 'Incidencias_Almacen/Registrar_Proveedor.html', {
         'form': form,
-        'jwt_token': str(refresh.access_token)
+        'jwt_token': jwt_token
     })
 #logout
 
@@ -92,7 +93,28 @@ class IncidenciaListView(ListView):
     model = Incidencia
     template_name = 'Incidencias_Almacen/lista_incidencia.html'
     context_object_name = 'incidencias'
-    queryset = Incidencia.objects.order_by('titulo')
+
+    def get_queryset(self):
+        consulta = Incidencia.objects.all().order_by('titulo')
+        q = self.request.GET.get('q')
+        prioridad = self.request.GET.get('prioridad')
+        estado = self.request.GET.get('estado')
+
+        if q:
+            consulta = consulta.filter(
+                Q(codigo__icontains=q) | 
+                Q(titulo__icontains=q) | 
+                Q(descripcion_detallada__icontains=q) |
+                Q(zona_almacen__icontains=q)
+            )
+        
+        if prioridad:
+            consulta = consulta.filter(nivel_prioridad=prioridad)
+        
+        if estado:
+            consulta = consulta.filter(estado=estado)
+
+        return consulta
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -127,7 +149,24 @@ class MaterialListView(ListView):
     model = Material
     template_name = 'Incidencias_Almacen/Lista_Materiales.html'
     context_object_name = 'materiales'
-    queryset = Material.objects.order_by('nombre')
+
+    def get_queryset(self):
+        consulta = Material.objects.all().order_by('nombre')
+        q = self.request.GET.get('q')
+        familia = self.request.GET.get('familia')
+
+        if q:
+            consulta = consulta.filter(
+                Q(codigo_interno__icontains=q) | 
+                Q(nombre__icontains=q) | 
+                Q(descripcion__icontains=q) |
+                Q(ubicacion_habitual__icontains=q)
+            )
+        
+        if familia:
+            consulta = consulta.filter(familia__icontains=familia)
+
+        return consulta
 
 class MaterialDetailView(DetailView):
     model = Material
@@ -141,7 +180,20 @@ class ProveedorListView(ListView):
     model = Proveedor
     template_name = 'Incidencias_Almacen/Lista_Proveedores.html'
     context_object_name = 'proveedores'
-    queryset = Proveedor.objects.order_by('nombre_comercial')
+
+    def get_queryset(self):
+        consulta = Proveedor.objects.all().order_by('nombre_comercial')
+        q = self.request.GET.get('q')
+
+        if q:
+            consulta = consulta.filter(
+                Q(cif__icontains=q) | 
+                Q(nombre_comercial__icontains=q) | 
+                Q(email__icontains=q) |
+                Q(direccion__icontains=q)
+            )
+
+        return consulta
 
 class ProveedorDetailView(DetailView):
     model = Proveedor

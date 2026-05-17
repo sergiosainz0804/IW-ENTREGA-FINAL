@@ -11,6 +11,33 @@
 <div id="contenido">
     <main>
         <h2> Incidencias </h2>
+        <form method="GET" class="buscador-container">
+            <div class="filtro-group">
+                <label for="q">Buscar</label>
+                <input type="text" name="q" id="q" placeholder="Código, título..." value="{{ request.GET.q }}">
+            </div>
+            <div class="filtro-group">
+                <label for="prioridad">Prioridad</label>
+                <select name="prioridad" id="prioridad">
+                    <option value="">Todas</option>
+                    <option value="BAJA" {% if request.GET.prioridad == 'BAJA' %}selected{% endif %}>Baja</option>
+                    <option value="MEDIA" {% if request.GET.prioridad == 'MEDIA' %}selected{% endif %}>Media</option>
+                    <option value="ALTA" {% if request.GET.prioridad == 'ALTA' %}selected{% endif %}>Alta</option>
+                    <option value="URGENTE" {% if request.GET.prioridad == 'URGENTE' %}selected{% endif %}>Urgente</option>
+                </select>
+            </div>
+            <div class="filtro-group">
+                <label for="estado">Estado</label>
+                <select name="estado" id="estado">
+                    <option value="">Todos</option>
+                    <option value="PENDIENTE" {% if request.GET.estado == 'PENDIENTE' %}selected{% endif %}>Pendiente</option>
+                    <option value="EN_PROCESO" {% if request.GET.estado == 'EN_PROCESO' %}selected{% endif %}>En Proceso</option>
+                    <option value="RESUELTA" {% if request.GET.estado == 'RESUELTA' %}selected{% endif %}>Resuelta</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-buscar">Filtrar</button>
+            <a href="{% url 'Listado' %}" class="btn-limpiar">Limpiar</a>
+        </form>
             <table>
                 <thead>
                     <tr>

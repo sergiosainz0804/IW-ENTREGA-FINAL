@@ -9,6 +9,19 @@
 
 {%block content%}
 <main>
+    <form method="GET" class="buscador-container">
+        <div class="filtro-group">
+            <label for="q">Buscar</label>
+            <input type="text" name="q" id="q" placeholder="Código, nombre..." value="{{ request.GET.q }}">
+        </div>
+        <div class="filtro-group">
+            <label for="familia">Familia</label>
+            <input type="text" name="familia" id="familia" placeholder="Familia..." value="{{ request.GET.familia }}">
+        </div>
+        <button type="submit" class="btn-buscar">Filtrar</button>
+        <a href="{% url 'Lista_Material' %}" class="btn-limpiar">Limpiar</a>
+    </form>
+    <div class="tabla-contenedor">
     <table>
         <thead>
             <tr>
@@ -41,6 +54,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 </main>
 
 {%endblock%}

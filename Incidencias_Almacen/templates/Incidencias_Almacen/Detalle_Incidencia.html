@@ -51,10 +51,12 @@
     <section class="extra" style="margin-top: 20px; justify-content: center; width: 100%;">
         <div class="divi" style="width: 100%; text-align: center;">
             <h2> Archivo Adjunto </h2>
-            <p style="margin-top: 10px;">
-                <a href="{{ incidencia.documento_adjunto.url }}" target="_blank" class="ac"
-                    style="padding: 8px 20px; font-weight: bold; background-color: ghostwhite; border: 3px solid black; border-radius: 5px; box-shadow: 2px 2px black; text-decoration: none;">
-                    Ver archivo adjunto
+            <p style="margin-top: 15px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="{{ incidencia.documento_adjunto.url }}" target="_blank" class="ac" style="padding: 8px 20px; font-weight: bold; background-color: ghostwhite; border: 3px solid black; border-radius: 5px; box-shadow: 2px 2px black; text-decoration: none; transition: transform 0.1s ease;">
+                    Ver archivo
+                </a>
+                <a href="{% url 'DescargarArchivo' incidencia.pk %}" class="acc" style="padding: 8px 20px; font-weight: bold; background-color: ghostwhite; border: 3px solid black; border-radius: 5px; box-shadow: 2px 2px black; text-decoration: none; transition: transform 0.1s ease;">
+                    Descargar archivo
                 </a>
             </p>
         </div>

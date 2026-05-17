@@ -16,6 +16,7 @@ urlpatterns = [
   
     path('Lista/', views.IncidenciaListView.as_view(), name='Listado'),
     path('Detalles/<int:pk>/', views.IncidenciaDetailView.as_view(), name='DetallesI'),
+    path('Descargar/<int:pk>/', views.DescargarArchivo, name='DescargarArchivo'),
     path('Registrar/', views.Registrar, name='Registrar'),
     path('Borrar/<int:pk>/', views.Borrar, name='Borrar'),
     path('BorrarM/<int:pk>/', views.BorrarM, name='BorrarM'),

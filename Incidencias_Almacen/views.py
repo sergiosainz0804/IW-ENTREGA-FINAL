@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse, Http404
 from django.db.models import Q
+import os
+import mimetypes
 from django.views.generic import ListView, DetailView
 from django.db import IntegrityError
 from .models import Incidencia, Material, Proveedor , Operario
@@ -316,6 +318,23 @@ def BorrarP(request, pk):
 
 
 
+@login_required
+def DescargarArchivo(request, pk):
+    incidencia = get_object_or_404(Incidencia, pk=pk)
+    if not incidencia.documento_adjunto:
+        raise Http404("La incidencia no tiene ningún archivo adjunto.")
+    
+    file_path = incidencia.documento_adjunto.path
+    if not os.path.exists(file_path):
+        raise Http404("El archivo adjunto no existe físicamente en el servidor.")
+    
+    content_type, encoding = mimetypes.guess_type(file_path)
+    if not content_type:
+        content_type = 'application/octet-stream'
+        
+    response = FileResponse(open(file_path, 'rb'), content_type=content_type)
+    response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
+    return response
 
 
 #serializacion

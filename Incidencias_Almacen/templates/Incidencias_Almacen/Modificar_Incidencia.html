@@ -10,7 +10,7 @@
 
 {% block content %}
 <main>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <section class="info">
@@ -43,6 +43,9 @@
 
             <label>{{ form.material_afectado.label }}</label>
             {{ form.material_afectado }}
+
+            <label>{{ form.documento_adjunto.label }}</label>
+            {{ form.documento_adjunto }}
 
             <button type="submit" id="btn">Actualizar Incidencia</button>
         </section>

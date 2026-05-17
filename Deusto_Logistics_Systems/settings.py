@@ -128,3 +128,7 @@ REST_FRAMEWORK = {
 
 LOGIN_URL = 'Login'
 LOGIN_REDIRECT_URL = 'DashBoard'
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

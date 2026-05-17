@@ -23,6 +23,7 @@ class IncidenciaForm(forms.Form):
     
     operario_asignado = forms.ModelChoiceField(label="Operario Asignado", queryset=Operario.objects.all(), required=False)
     material_afectado = forms.ModelChoiceField(label="Material Afectado", queryset=Material.objects.all(), required=False)
+    documento_adjunto = forms.FileField(label="Documento Adjunto", required=False)
 
 
 class MaterialForm(forms.Form):

@@ -24,7 +24,7 @@ def Menu(request):
 def Registrar(request):
     refresh = RefreshToken.for_user(request.user)
     if request.method == 'POST':
-        form = IncidenciaForm(request.POST)
+        form = IncidenciaForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 Incidencia.objects.create(**form.cleaned_data)
@@ -211,7 +211,7 @@ def ModificarIncidencia(request, pk):
 
     if request.method == 'POST':
 
-        form = IncidenciaForm(request.POST)
+        form = IncidenciaForm(request.POST, request.FILES)
         if form.is_valid():
            
             inci.codigo = form.cleaned_data['codigo']
@@ -222,6 +222,7 @@ def ModificarIncidencia(request, pk):
             inci.zona_almacen = form.cleaned_data['zona_almacen']
             inci.operario_asignado = form.cleaned_data['operario_asignado']
             inci.material_afectado = form.cleaned_data['material_afectado']
+            inci.documento_adjunto = form.cleaned_data['documento_adjunto']
         
             try:
                 inci.save()
@@ -239,6 +240,7 @@ def ModificarIncidencia(request, pk):
             'zona_almacen': inci.zona_almacen,
             'operario_asignado': inci.operario_asignado,
             'material_afectado': inci.material_afectado,
+            'documento_adjunto': inci.documento_adjunto,
         })
     return render(request, 'Incidencias_Almacen/Modificar_Incidencia.html', {'form': form})
 

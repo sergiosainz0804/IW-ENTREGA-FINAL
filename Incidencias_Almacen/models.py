@@ -55,6 +55,7 @@ class Incidencia(models.Model):
     
     operario_asignado = models.ForeignKey(Operario, on_delete=models.SET_NULL, null=True, blank=True)
     material_afectado = models.ForeignKey(Material, on_delete=models.SET_NULL, null=True, blank=True)
+    documento_adjunto = models.FileField(upload_to='documentos/', blank=True, null=True)
 
     def __str__(self):
         return f"Incidencia {self.codigo} - {self.titulo}"
